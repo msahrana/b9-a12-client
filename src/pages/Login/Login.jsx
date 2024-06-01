@@ -1,4 +1,4 @@
-import logo from "../../../public/images/auth-logo.jpg";
+import logo from "../../../public/images/auth-logo.png";
 import {Link} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import useAuth from "../../hooks/useAuth/useAuth";

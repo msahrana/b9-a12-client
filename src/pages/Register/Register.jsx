@@ -1,4 +1,4 @@
-import logo from "../../../public/images/auth-logo.jpg";
+import logo from "../../../public/images/auth-logo.png";
 import {Link} from "react-router-dom";
 import useAuth from "../../hooks/useAuth/useAuth";
 import {useForm} from "react-hook-form";
@@ -21,7 +21,7 @@ const Register = () => {
         console.log(result.user);
         toast.success("User Create Successfully!");
         updateUser(name, photo);
-        setUser({...user, displayName: name, photo: photo});
+        setUser({...user, displayName: name, photoURL: photo});
       })
       .catch((err) => {
         console.log(err);
