@@ -6,6 +6,7 @@ import Login from "../../pages/Login/Login";
 import Register from "../../pages/Register/Register";
 import Dashboard from "../../layout/Dashboard/Dashboard";
 import AllUsers from "../../pages/Dashboard/Admin/AllUsers";
+import Profile from "../../pages/Dashboard/Common/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: "all-users",
         element: <AllUsers></AllUsers>,
+      },
+      {
+        path: "profile",
+        element: <Profile></Profile>,
       },
     ],
   },

@@ -2,7 +2,7 @@ import {GrLogout} from "react-icons/gr";
 import {FcSettings} from "react-icons/fc";
 // import {BsFillHouseAddFill} from "react-icons/bs";
 import {BsGraphUp} from "react-icons/bs";
-import {NavLink} from "react-router-dom";
+
 import {Link} from "react-router-dom";
 // import {MdHomeWork} from "react-icons/md";
 import useAuth from "../../../hooks/useAuth/useAuth";
@@ -100,18 +100,11 @@ const Sidebar = () => {
           <hr />
 
           {/* Profile Menu */}
-          <NavLink
-            to="/dashboard/profile"
-            className={({isActive}) =>
-              `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
-              }`
-            }
-          >
-            <FcSettings className="w-5 h-5" />
-
-            <span className="mx-4 font-medium">Profile</span>
-          </NavLink>
+          <MenuItem
+            label="Profile"
+            address="/dashboard/profile"
+            icon={FcSettings}
+          />
 
           {/* logout */}
           <button

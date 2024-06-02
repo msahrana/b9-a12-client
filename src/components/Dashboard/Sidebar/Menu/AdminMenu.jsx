@@ -1,12 +1,13 @@
-import {FaUserCog} from "react-icons/fa";
+import {FaUserCog, FaUsers} from "react-icons/fa";
 import MenuItem from "./MenuItem";
+import {MdBloodtype} from "react-icons/md";
 
 const AdminMenu = () => {
   return (
     <>
-      <MenuItem icon={FaUserCog} label="All Users" address="all-users" />
+      <MenuItem icon={FaUsers} label="All Users" address="all-users" />
       <MenuItem
-        icon={FaUserCog}
+        icon={MdBloodtype}
         label="All Blood Donation Request"
         address="all-blood-donation-request"
       />

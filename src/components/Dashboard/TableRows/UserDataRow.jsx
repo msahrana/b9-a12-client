@@ -49,7 +49,13 @@ const UserDataRow = ({user, refetch}) => {
   return (
     <tr>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <img className="w-10 rounded-full" src={user?.image_url} alt="" />
+      </td>
+      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <p className="text-gray-900 whitespace-no-wrap">{user?.email}</p>
+      </td>
+      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p className="text-gray-900 whitespace-no-wrap">{user?.name}</p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <p className="text-gray-900 whitespace-no-wrap">{user?.user?.role}</p>
@@ -58,9 +64,7 @@ const UserDataRow = ({user, refetch}) => {
         {user?.user?.status ? (
           <p
             className={`${
-              user.user.status === "active"
-                ? "text-green-500"
-                : "text-yellow-500"
+              user.user.status === "active" ? "text-green-500" : "text-red-500"
             } whitespace-no-wrap`}
           >
             {user.user.status}
@@ -81,7 +85,7 @@ const UserDataRow = ({user, refetch}) => {
           ></span>
           <span className="relative">Update Role</span>
         </button>
-        {/* Update User Modal */}
+        {/* Update User role Modal */}
         <UpdateUserModal
           isOpen={isOpen}
           setIsOpen={setIsOpen}

@@ -1,8 +1,21 @@
+import {FaUserCog} from "react-icons/fa";
+import MenuItem from "./MenuItem";
+import {MdBloodtype} from "react-icons/md";
+
 const DonorMenu = () => {
   return (
-    <div>
-      <h2>donor menu</h2>
-    </div>
+    <>
+      <MenuItem
+        icon={MdBloodtype}
+        label="My Donation Requests"
+        address="my-donation-requests"
+      />
+      <MenuItem
+        icon={FaUserCog}
+        label="Create Donation Request"
+        address="create-donation-request"
+      />
+    </>
   );
 };
 
