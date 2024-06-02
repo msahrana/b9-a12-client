@@ -1,23 +1,27 @@
-import {useState} from "react";
 import {GrLogout} from "react-icons/gr";
 import {FcSettings} from "react-icons/fc";
-import {BsFillHouseAddFill} from "react-icons/bs";
-import {AiOutlineBars} from "react-icons/ai";
+// import {BsFillHouseAddFill} from "react-icons/bs";
 import {BsGraphUp} from "react-icons/bs";
 import {NavLink} from "react-router-dom";
 import {Link} from "react-router-dom";
-import {MdHomeWork} from "react-icons/md";
+// import {MdHomeWork} from "react-icons/md";
 import useAuth from "../../../hooks/useAuth/useAuth";
 import logo from "/images/logo.png";
+import useRole from "../../../hooks/useRole/useRole";
+import MenuItem from "./Menu/MenuItem";
+import AdminMenu from "./Menu/AdminMenu";
+import DonorMenu from "./Menu/DonorMenu";
+import VolunteerMenu from "./Menu/VolunteerMenu";
 
 const Sidebar = () => {
   const {logOut} = useAuth();
-  const [isActive, setActive] = useState(false);
+  const [role, isLoading] = useRole();
+  console.log(role);
 
-  // Sidebar Responsive Handler
-  const handleToggle = () => {
-    setActive(!isActive);
-  };
+  if (isLoading) {
+    return <span className="loading loading-infinity loading-lg"></span>;
+  }
+
   return (
     <>
       {/* Small Screen Navbar */}
@@ -29,20 +33,11 @@ const Sidebar = () => {
             </Link>
           </div>
         </div>
-
-        <button
-          onClick={handleToggle}
-          className="mobile-menu-button p-4 focus:outline-none focus:bg-gray-200"
-        >
-          <AiOutlineBars className="h-5 w-5" />
-        </button>
       </div>
 
       {/* Sidebar */}
       <div
-        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-200 w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${
-          isActive && "-translate-x-full"
-        }  md:translate-x-0  transition duration-200 ease-in-out`}
+        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-200 w-80 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform md:translate-x-0  transition duration-200 ease-in-out`}
       >
         <div>
           <div>
@@ -60,21 +55,18 @@ const Sidebar = () => {
             {/*  Menu Items */}
             <nav>
               {/* Statistics */}
-              <NavLink
-                to="statistics"
-                className={({isActive}) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
-                  }`
-                }
-              >
-                <BsGraphUp className="w-5 h-5" />
+              <MenuItem
+                label="Statistics"
+                address="/dashboard"
+                icon={BsGraphUp}
+              />
 
-                <span className="mx-4 font-medium">Statistics</span>
-              </NavLink>
+              {role === "donor" && <DonorMenu />}
+              {role === "volunteer" && <VolunteerMenu />}
+              {role === "admin" && <AdminMenu />}
 
               {/* Add Room */}
-              <NavLink
+              {/* <NavLink
                 to="add-room"
                 className={({isActive}) =>
                   `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
@@ -85,10 +77,10 @@ const Sidebar = () => {
                 <BsFillHouseAddFill className="w-5 h-5" />
 
                 <span className="mx-4 font-medium">Add Room</span>
-              </NavLink>
+              </NavLink> */}
 
               {/* My Listing */}
-              <NavLink
+              {/* <NavLink
                 to="my-listings"
                 className={({isActive}) =>
                   `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
@@ -99,7 +91,7 @@ const Sidebar = () => {
                 <MdHomeWork className="w-5 h-5" />
 
                 <span className="mx-4 font-medium">My Listings</span>
-              </NavLink>
+              </NavLink> */}
             </nav>
           </div>
         </div>
