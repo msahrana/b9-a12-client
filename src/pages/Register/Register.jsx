@@ -1,164 +1,215 @@
-import logo from "../../../public/images/auth-logo.png";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth/useAuth";
-import {useForm} from "react-hook-form";
 import toast from "react-hot-toast";
+import {imageUpload} from "../../api/utils";
+import {TbFidgetSpinner} from "react-icons/tb";
+import useAxiosPublic from "../../hooks/useAxiosPublic/useAxiosPublic";
+import {districts} from "../../components/Address/District";
+import {upazilas} from "../../components/Address/Upazila";
 
 const Register = () => {
-  const {user, setUser, createUser, updateUser} = useAuth();
+  const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
+  const {createUser, updateUser, loading, setLoading} = useAuth();
 
-  const {
-    register,
-    handleSubmit,
-    formState: {errors},
-  } = useForm();
-
-  const onSubmit = (data) => {
-    const {name, photo, email, password} = data || {};
-
-    createUser(email, password)
-      .then((result) => {
-        console.log(result.user);
-        toast.success("User Create Successfully!");
-        updateUser(name, photo);
-        setUser({...user, displayName: name, photoURL: photo});
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const image = form.image.files[0];
+    const blood = form.blood.value;
+    const district = form.district.value;
+    const upazila = form.upazila.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    try {
+      setLoading(true);
+      const image_url = await imageUpload(image);
+      await createUser(email, password);
+      const newUser = {
+        name,
+        image_url,
+        email,
+        blood,
+        district,
+        upazila,
+        user: {
+          role: "donor",
+          status: "active",
+        },
+      };
+      const {data} = await axiosPublic.post("/users", newUser);
+      console.log(data);
+      await updateUser(name, image_url);
+      navigate("/");
+      toast.success("User Create Successfully!");
+    } catch (err) {
+      console.log(err);
+      toast.error(err.massage);
+    }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-[calc(100vh-306px)]">
-      <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl ">
-        <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
-          <p className="mt-3 text-xl text-center text-gray-600 ">
-            Get Your Free Account Now.
-          </p>
-
-          <div className="flex items-center justify-between mt-4">
-            <span className="w-1/5 border-b  lg:w-1/4"></span>
-
-            <div className="text-xs text-center text-gray-500 uppercase  hover:underline">
-              Registration with email
-            </div>
-
-            <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
-          </div>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mt-4">
-              <label
-                className="block mb-2 text-sm font-medium text-gray-600 "
-                htmlFor="name"
-              >
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900">
+        <div className="mb-8 text-center">
+          <h1 className="my-3 text-4xl font-bold">Sign Up</h1>
+          <p className="text-sm text-gray-400">Welcome to Life Line</p>
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="name" className="block mb-2 text-sm">
                 Name:
               </label>
               <input
-                id="name"
-                autoComplete="name"
+                type="text"
                 name="name"
-                className="block w-full px-4 py-2 border rounded"
-                type="text"
-                placeholder="Name"
-                {...register("name", {required: true})}
+                id="name"
+                placeholder="Enter Your Name Here"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                data-temp-mail-org="0"
               />
-              {errors.name && (
-                <span className="text-red-500">Name is required</span>
-              )}
-            </div>
-            <div className="mt-4">
-              <label
-                className="block mb-2 text-sm font-medium text-gray-600 "
-                htmlFor="photo"
-              >
-                Photo URL:
-              </label>
-              <input
-                id="photo"
-                autoComplete="photo"
-                name="photo"
-                className="block w-full px-4 py-2 border rounded"
-                type="text"
-                placeholder="PhotoURL"
-                {...register("photoURL", {required: true})}
-              />
-              {errors.photoURL && (
-                <span className="text-red-500">PhotoURL is required</span>
-              )}
-            </div>
-            <div className="mt-4">
-              <label
-                className="block mb-2 text-sm font-medium text-gray-600 "
-                htmlFor="LoggingEmailAddress"
-              >
-                Email Address:
-              </label>
-              <input
-                id="LoggingEmailAddress"
-                autoComplete="email"
-                name="email"
-                className="block w-full px-4 py-2 border rounded"
-                type="email"
-                placeholder="Email"
-                {...register("email", {required: true})}
-              />
-              {errors.email && (
-                <span className="text-red-500">Email is required</span>
-              )}
             </div>
 
-            <div className="mt-4">
+            <div>
+              <label htmlFor="image" className="block mb-2 text-sm">
+                Select Image:
+              </label>
+              <input
+                required
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"
+              />
+            </div>
+
+            <label className="form-control w-full max-w-xs">
+              <div className="label">
+                <span className="label-text">Blood Group:</span>
+              </div>
+              <select className="select select-bordered" name="blood" required>
+                <option disabled selected>
+                  Select a Blood Group
+                </option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+              </select>
+            </label>
+
+            <div className="space-y-1 text-sm">
+              <label htmlFor="district" className="block text-gray-600">
+                District:
+              </label>
+              <select
+                required
+                className="w-full px-4 py-3 border-rose-300 focus:outline-rose-500 rounded-md"
+                name="district"
+              >
+                {districts.map((district) => (
+                  <option value={district.name} key={district.name}>
+                    {district.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-1 text-sm">
+              <label htmlFor="upazila" className="block text-gray-600">
+                Upazila:
+              </label>
+              <select
+                required
+                className="w-full px-4 py-3 border-rose-300 focus:outline-rose-500 rounded-md"
+                name="upazila"
+              >
+                {upazilas.map((upazila) => (
+                  <option value={upazila.name} key={upazila.name}>
+                    {upazila.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block mb-2 text-sm">
+                Email address:
+              </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                required
+                placeholder="Enter Your Email Here"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                data-temp-mail-org="0"
+              />
+            </div>
+
+            <div>
               <div className="flex justify-between">
-                <label
-                  className="block mb-2 text-sm font-medium text-gray-600 "
-                  htmlFor="loggingPassword"
-                >
+                <label htmlFor="password" className="text-sm mb-2">
                   Password:
                 </label>
               </div>
-
               <input
-                id="loggingPassword"
-                autoComplete="current-password"
-                name="password"
-                className="block w-full px-4 py-2 border rounded"
                 type="password"
-                placeholder="Password"
-                {...register("password", {required: true})}
+                name="password"
+                autoComplete="new-password"
+                id="password"
+                required
+                placeholder="*******"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
               />
-              {errors.password && (
-                <span className="text-red-500">Password is required</span>
-              )}
             </div>
-            <div className="mt-6">
-              <button
-                type="submit"
-                className="w-full px-6 py-3 text-sm font-medium bg-red-600 text-white uppercase"
-              >
-                Register
-              </button>
-            </div>
-          </form>
-
-          <div className="flex items-center justify-between mt-4">
-            <span className="w-1/5 border-b  md:w-1/4"></span>
-
-            <Link
-              to="/login"
-              className="text-xs text-gray-500 uppercase  hover:underline"
-            >
-              or <span className="text-red-500 font-bold">Login</span>
-            </Link>
-
-            <span className="w-1/5 border-b  md:w-1/4"></span>
           </div>
+          <div>
+            <button
+              disabled={loading}
+              type="submit"
+              className="bg-rose-500 w-full rounded-md py-3 text-white"
+            >
+              {loading ? (
+                <TbFidgetSpinner className="animate-spin mx-auto" />
+              ) : (
+                "Continue"
+              )}
+            </button>
+          </div>
+        </form>
+        {/* <div className="flex items-center pt-4 space-x-1">
+          <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
+          <p className="px-3 text-sm dark:text-gray-400">
+            Signup with social accounts
+          </p>
+          <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
-        <div
-          className="hidden bg-cover bg-center lg:block lg:w-1/2"
-          style={{
-            backgroundImage: `url(${logo})`,
-          }}
-        ></div>
+        <button
+          disabled={loading}
+          onClick={handleGoogleSignIn}
+          className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer"
+        >
+          <FcGoogle size={32} />
+
+          <p>Continue with Google</p>
+        </button> */}
+        <p className="px-6 text-sm text-center text-gray-400">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="hover:underline hover:text-rose-500 text-gray-600 font-bold"
+          >
+            Login
+          </Link>
+          .
+        </p>
       </div>
     </div>
   );

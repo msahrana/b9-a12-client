@@ -1,122 +1,97 @@
-import logo from "../../../public/images/auth-logo.png";
-import {Link} from "react-router-dom";
-import {useForm} from "react-hook-form";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth/useAuth";
 import toast from "react-hot-toast";
+import {TbFidgetSpinner} from "react-icons/tb";
 
 const Login = () => {
-  const {signIn} = useAuth();
+  const {signIn, loading, setLoading} = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
 
-  const {
-    register,
-    handleSubmit,
-    formState: {errors},
-  } = useForm();
-
-  const onSubmit = (data) => {
-    const {email, password} = data || {};
-
-    signIn(email, password)
-      .then((result) => {
-        console.log(result.user);
-        toast.success("User Logged Successfully!");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    try {
+      setLoading(true);
+      await signIn(email, password);
+      navigate(from, {replace: true});
+      toast.success("User SignIn Successfully!");
+    } catch (err) {
+      console.log(err);
+      toast.error(err.massage);
+    }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-[calc(100vh-306px)]">
-      <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl ">
-        <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
-          <p className="mt-3 text-xl text-center text-gray-600 ">
-            Get Your Free Account Now.
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900">
+        <div className="mb-8 text-center">
+          <h1 className="my-3 text-4xl font-bold">Log In</h1>
+          <p className="text-sm text-gray-400">
+            Sign in to access your account
           </p>
-
-          <div className="flex items-center justify-between mt-4">
-            <span className="w-1/5 border-b  lg:w-1/4"></span>
-
-            <div className="text-xs text-center text-gray-500 uppercase  hover:underline">
-              Login with email
-            </div>
-
-            <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
-          </div>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mt-4">
-              <label
-                className="block mb-2 text-sm font-medium text-gray-600 "
-                htmlFor="LoggingEmailAddress"
-              >
-                Email Address
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="email" className="block mb-2 text-sm">
+                Email address
               </label>
               <input
-                id="LoggingEmailAddress"
-                autoComplete="email"
-                name="email"
-                className="block w-full px-4 py-2 border rounded"
                 type="email"
-                placeholder="Email"
-                {...register("email", {required: true})}
+                name="email"
+                id="email"
+                required
+                placeholder="Enter Your Email Here"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                data-temp-mail-org="0"
               />
-              {errors.email && (
-                <span className="text-red-500">Email is required</span>
-              )}
             </div>
-
-            <div className="mt-4">
+            <div>
               <div className="flex justify-between">
-                <label
-                  className="block mb-2 text-sm font-medium text-gray-600 "
-                  htmlFor="loggingPassword"
-                >
+                <label htmlFor="password" className="text-sm mb-2">
                   Password
                 </label>
               </div>
-
               <input
-                id="loggingPassword"
-                autoComplete="current-password"
-                name="password"
-                className="block w-full px-4 py-2"
                 type="password"
-                placeholder="Password"
-                {...register("password", {required: true})}
+                name="password"
+                autoComplete="current-password"
+                id="password"
+                required
+                placeholder="*******"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
               />
-              {errors.password && (
-                <span className="text-red-500">Password is required</span>
-              )}
             </div>
-            <div className="mt-6">
-              <button
-                type="submit"
-                className="w-full px-6 py-3 text-sm font-medium bg-red-600 text-white uppercase"
-              >
-                Login
-              </button>
-            </div>
-          </form>
-
-          <div className="flex items-center justify-between mt-4">
-            <span className="w-1/5 border-b  md:w-1/4"></span>
-
-            <Link
-              to="/register"
-              className="text-xs text-gray-500 uppercase  hover:underline"
-            >
-              or <span className="text-red-500 font-bold">Register</span>
-            </Link>
-
-            <span className="w-1/5 border-b  md:w-1/4"></span>
           </div>
-        </div>
-        <div
-          className="hidden bg-cover bg-center lg:block lg:w-1/2"
-          style={{
-            backgroundImage: `url(${logo})`,
-          }}
-        ></div>
+          <div>
+            <button
+              disabled={loading}
+              type="submit"
+              className="bg-rose-500 w-full rounded-md py-3 text-white"
+            >
+              {loading ? (
+                <TbFidgetSpinner className="animate-spin mx-auto" />
+              ) : (
+                "Continue"
+              )}
+            </button>
+          </div>
+        </form>
+
+        <p className="px-6 text-sm text-center text-gray-400">
+          Don&apos;t have an account yet?{" "}
+          <Link
+            to="/register"
+            className="hover:underline hover:text-rose-500 text-gray-600 font-bold"
+          >
+            Sign up
+          </Link>
+          .
+        </p>
       </div>
     </div>
   );

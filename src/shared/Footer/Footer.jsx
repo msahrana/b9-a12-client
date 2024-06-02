@@ -1,13 +1,13 @@
-import logo from "/images/logo1.png";
+import logo from "/images/logo.png";
 
 const Footer = () => {
   return (
-    <footer className="footer items-center p-4 bg-neutral text-neutral-content mt-96">
+    <footer className="footer items-center p-4 bg-neutral text-neutral-content">
       <aside className="items-center grid-flow-col">
-        <img className="w-40" src={logo} alt="" />
-        <p className="text-lg font-bold">
-          Copyright © 2024 - All right reserved by{" "}
-          <span className="text-red-500 text-3xl">Life Line</span>
+        <img className="md:w-40" src={logo} alt="" />
+        <p className="text-sm md:text-lg md:font-bold">
+          Copyright © 2024 - All right reserved by
+          <span className="text-red-500 md:text-3xl"> Life Line</span>
         </p>
       </aside>
       <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end md:mr-4">
