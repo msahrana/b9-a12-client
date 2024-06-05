@@ -6,17 +6,18 @@ import toast from "react-hot-toast";
 import useAxiosSecure from "../../../hooks/useAxiosSecure/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth/useAuth";
 
-const UserDataRow = ({user, refetch}) => {
+const UserDataRow = ({user: userData, refetch}) => {
   const {user: loggedInUser} = useAuth();
-
+  const [isStatus, setIsStatus] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
+  const {user} = userData;
   const {mutateAsync} = useMutation({
     mutationFn: async (role) => {
-      const {data} = await axiosSecure.patch(
-        `/users/update/${user?.email}`,
-        role
-      );
+      const {data} = await axiosSecure.put(`/users/update/${userData?.email}`, {
+        role: role.role,
+        status: userData.user.status,
+      });
       return data;
     },
     onSuccess: (data) => {
@@ -36,9 +37,8 @@ const UserDataRow = ({user, refetch}) => {
 
     const userRole = {
       role: selected,
-      status: "Verified",
+      status: "active",
     };
-
     try {
       await mutateAsync(userRole);
     } catch (err) {
@@ -46,32 +46,43 @@ const UserDataRow = ({user, refetch}) => {
       toast.error(err.message);
     }
   };
+
+  const handleStatus = () => {
+    setIsStatus(false);
+  };
+
   return (
     <tr>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <img className="w-10 rounded-full" src={user?.image_url} alt="" />
+        <img className="w-10 rounded-full" src={userData?.image_url} alt="" />
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">{user?.email}</p>
+        <p className="text-gray-900 whitespace-no-wrap">{userData?.email}</p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">{user?.name}</p>
+        <p className="text-gray-900 whitespace-no-wrap">{userData?.name}</p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">{user?.user?.role}</p>
+        <p className="text-gray-900 whitespace-no-wrap">
+          {userData?.user?.role}
+        </p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        {user?.user?.status ? (
-          <p
-            className={`${
-              user.user.status === "active" ? "text-green-500" : "text-red-500"
-            } whitespace-no-wrap`}
-          >
-            {user.user.status}
-          </p>
-        ) : (
-          <p className="text-red-500 whitespace-no-wrap">Unavailable</p>
-        )}
+        <button onClick={() => handleStatus(true)}>
+          {userData?.user?.status ? (
+            <p
+              className={`${
+                userData.user.status === "active"
+                  ? "text-green-500"
+                  : "text-red-500"
+              } whitespace-no-wrap`}
+            >
+              {userData.user.status}
+            </p>
+          ) : (
+            <p className="text-red-500 whitespace-no-wrap">Unavailable</p>
+          )}
+        </button>
       </td>
 
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -90,7 +101,7 @@ const UserDataRow = ({user, refetch}) => {
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           modalHandler={modalHandler}
-          user={user}
+          user={userData}
         />
       </td>
     </tr>

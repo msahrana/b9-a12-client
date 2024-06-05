@@ -16,7 +16,7 @@ import {AiOutlineDown} from "react-icons/ai";
 const roles = ["donor", "volunteer", "admin"];
 
 const UpdateUserModal = ({setIsOpen, isOpen, modalHandler, user}) => {
-  const [selected, setSelected] = useState(user.user.role);
+  const [selected, setSelected] = useState(user?.user?.role);
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
@@ -110,14 +110,14 @@ const UpdateUserModal = ({setIsOpen, isOpen, modalHandler, user}) => {
                 <div className="flex mt-2 justify-center gap-5">
                   <button
                     type="button"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
                     onClick={() => modalHandler(selected)}
                   >
                     Update
                   </button>
                   <button
                     type="button"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                     onClick={() => setIsOpen(false)}
                   >
                     Cancel

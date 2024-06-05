@@ -7,6 +7,10 @@ import Register from "../../pages/Register/Register";
 import Dashboard from "../../layout/Dashboard/Dashboard";
 import AllUsers from "../../pages/Dashboard/Admin/AllUsers";
 import Profile from "../../pages/Dashboard/Common/Profile";
+import AllBloodDonationRequest from "../../pages/Dashboard/Admin/AllBloodDonationRequest";
+import ContentManagement from "../../pages/Dashboard/Admin/ContentManagement";
+import MyDonationRequests from "../../pages/Dashboard/Donor/MyDonationRequests";
+import CreateDonationRequest from "../../pages/Dashboard/Donor/CreateDonationRequest";
 
 export const router = createBrowserRouter([
   {
@@ -32,10 +36,29 @@ export const router = createBrowserRouter([
     path: "dashboard",
     element: <Dashboard></Dashboard>,
     children: [
+      /* admin */
       {
         path: "all-users",
         element: <AllUsers></AllUsers>,
       },
+      {
+        path: "all-blood-donation-request",
+        element: <AllBloodDonationRequest></AllBloodDonationRequest>,
+      },
+      {
+        path: "content-management",
+        element: <ContentManagement></ContentManagement>,
+      },
+      /* donor */
+      {
+        path: "my-donation-requests",
+        element: <MyDonationRequests></MyDonationRequests>,
+      },
+      {
+        path: "create-donation-request",
+        element: <CreateDonationRequest></CreateDonationRequest>,
+      },
+      /* common */
       {
         path: "profile",
         element: <Profile></Profile>,

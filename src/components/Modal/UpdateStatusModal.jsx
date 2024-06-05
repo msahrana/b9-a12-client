@@ -16,7 +16,7 @@ import {AiOutlineDown} from "react-icons/ai";
 const roles = ["active", "blocked"];
 
 const UpdateStatusModal = ({setIsOpen, isOpen, modalHandler, user}) => {
-  const [selected, setSelected] = useState(user.user.status);
+  const [selected, setSelected] = useState(user?.status);
 
   return (
     <Transition appear show={isOpen} as={Fragment}>

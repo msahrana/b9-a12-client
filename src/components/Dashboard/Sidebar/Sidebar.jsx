@@ -16,7 +16,6 @@ import VolunteerMenu from "./Menu/VolunteerMenu";
 const Sidebar = () => {
   const {logOut} = useAuth();
   const [role, isLoading] = useRole();
-  console.log(role);
 
   if (isLoading) {
     return <span className="loading loading-infinity loading-lg"></span>;
