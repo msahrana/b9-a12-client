@@ -21,19 +21,6 @@ const CreateDonationRequest = () => {
     const date = form.date.value;
     const time = form.time.value;
     const message = form.message.value;
-    console.log(
-      name,
-      email,
-      recipientName,
-      hospitalName,
-      district,
-      upazila,
-      fullAddress,
-      date,
-      time,
-      message
-    );
-
     try {
       const donation = {
         name,
@@ -49,7 +36,7 @@ const CreateDonationRequest = () => {
         status: "pending",
       };
       const {data} = await axiosSecure.post("/donations", donation);
-      if (data.insertedId) {
+      if (data.insertedId > 0) {
         toast.success("Donation Create Successfully!");
       }
     } catch (error) {
@@ -63,6 +50,7 @@ const CreateDonationRequest = () => {
       <h1 className="text-center text-3xl font-bold mt-6">
         Create Donation Request:
       </h1>
+      {/* form section */}
       <div className="w-[60%] container mx-auto mt-10 border-2 p-5 rounded">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col md:flex-row lg:flex-row gap-6">
@@ -178,16 +166,6 @@ const CreateDonationRequest = () => {
                 required
               />
             </div>
-
-            {/* <div className="w-full pl-2">
-              <h2 className="font-medium">donation Time: (--am or --pm)</h2>
-              <input
-                type="text"
-                name="time"
-                className="border rounded pl-2 w-full mt-1"
-                readOnly
-              />
-            </div> */}
           </div>
 
           <div className="w-full pl-2 mt-6">
@@ -201,7 +179,7 @@ const CreateDonationRequest = () => {
 
           <div className="w-full mt-10">
             <button className="bg-red-500 text-xl font-bold px-3 py-1 rounded-xl w-full">
-              Add Request
+              Add Donation
             </button>
           </div>
         </form>

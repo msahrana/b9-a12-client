@@ -11,6 +11,7 @@ import AllBloodDonationRequest from "../../pages/Dashboard/Admin/AllBloodDonatio
 import ContentManagement from "../../pages/Dashboard/Admin/ContentManagement";
 import MyDonationRequests from "../../pages/Dashboard/Donor/MyDonationRequests";
 import CreateDonationRequest from "../../pages/Dashboard/Donor/CreateDonationRequest";
+import UpdateDonationModal from "../../components/Modal/UpdateDonationModal";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,12 @@ export const router = createBrowserRouter([
       {
         path: "create-donation-request",
         element: <CreateDonationRequest></CreateDonationRequest>,
+      },
+      {
+        path: "update-donation-modal/:id",
+        element: <UpdateDonationModal></UpdateDonationModal>,
+        loader: ({params}) =>
+          fetch(`${import.meta.env.VITE_API_URL}/donation/${params.id}`),
       },
       /* common */
       {
