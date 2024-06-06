@@ -1,5 +1,5 @@
-import Img1 from "../../../public/images/welcome1.png";
-import Img2 from "../../../public/images/welcome2.png";
+import Img1 from "/images/welcome1.png";
+import Img2 from "/images/welcome2.png";
 
 const Welcome = () => {
   return (
