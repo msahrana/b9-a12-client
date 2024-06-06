@@ -1,4 +1,5 @@
 import Banner from "../../components/Banner/Banner";
+import Contact from "../../components/Contact/Contact";
 import Welcome from "../../components/Welcome/Welcome";
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
     <div>
       <Banner></Banner>
       <Welcome></Welcome>
+      <Contact></Contact>
     </div>
   );
 };

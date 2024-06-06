@@ -12,6 +12,7 @@ import ContentManagement from "../../pages/Dashboard/Admin/ContentManagement";
 import MyDonationRequests from "../../pages/Dashboard/Donor/MyDonationRequests";
 import CreateDonationRequest from "../../pages/Dashboard/Donor/CreateDonationRequest";
 import UpdateDonationModal from "../../components/Modal/UpdateDonationModal";
+import ContactForm from "../../components/Contact/ContactForm";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home></Home>,
       },
+      {
+        path: "/contactForm",
+        element: <ContactForm></ContactForm>,
+      },
     ],
   },
   {
@@ -33,6 +38,7 @@ export const router = createBrowserRouter([
     path: "/register",
     element: <Register></Register>,
   },
+
   {
     path: "dashboard",
     element: <Dashboard></Dashboard>,

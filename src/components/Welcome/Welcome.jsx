@@ -3,11 +3,11 @@ import Img2 from "/images/welcome2.png";
 
 const Welcome = () => {
   return (
-    <div className="flex flex-col md:flex-row lg:flex-row gap-6 mt-10 md:px-32">
+    <div className="flex flex-col md:flex-row lg:flex-row gap-6 my-10 md:px-32">
       <div className="md:w-1/2">
         <img src={Img1} alt="" />
         <img
-          className="md:translate-x-72 md:-translate-y-96"
+          className="md:translate-x-72 md:-translate-y-96 md:absolute"
           src={Img2}
           alt=""
         />
