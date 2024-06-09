@@ -1,10 +1,10 @@
-import {useQuery} from "@tanstack/react-query";
+import {useParams} from "react-router-dom";
 import useAuth from "../../../hooks/useAuth/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure/useAxiosSecure";
+import {useQuery} from "@tanstack/react-query";
 import DonationRowData from "../../../components/Dashboard/TableRows/DonationRowData";
-import {useParams} from "react-router-dom";
 
-const MyDonationRequests = () => {
+const VolunteerBloodDonationRequest = () => {
   const {user, loading} = useAuth();
   const axiosSecure = useAxiosSecure();
   const _id = useParams();
@@ -105,4 +105,4 @@ const MyDonationRequests = () => {
   );
 };
 
-export default MyDonationRequests;
+export default VolunteerBloodDonationRequest;

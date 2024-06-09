@@ -36,7 +36,7 @@ const CreateDonationRequest = () => {
         status: "pending",
       };
       const {data} = await axiosSecure.post("/donations", donation);
-      if (data.insertedId > 0) {
+      if (data.insertedId) {
         toast.success("Donation Create Successfully!");
       }
     } catch (error) {

@@ -1,10 +1,7 @@
 import {GrLogout} from "react-icons/gr";
 import {FcSettings} from "react-icons/fc";
-// import {BsFillHouseAddFill} from "react-icons/bs";
 import {BsGraphUp} from "react-icons/bs";
-
 import {Link} from "react-router-dom";
-// import {MdHomeWork} from "react-icons/md";
 import useAuth from "../../../hooks/useAuth/useAuth";
 import logo from "/images/logo.png";
 import useRole from "../../../hooks/useRole/useRole";
@@ -55,7 +52,7 @@ const Sidebar = () => {
             <nav>
               {/* Statistics */}
               <MenuItem
-                label="Statistics"
+                label="UserDashboard"
                 address="/dashboard"
                 icon={BsGraphUp}
               />
@@ -63,34 +60,6 @@ const Sidebar = () => {
               {role === "donor" && <DonorMenu />}
               {role === "volunteer" && <VolunteerMenu />}
               {role === "admin" && <AdminMenu />}
-
-              {/* Add Room */}
-              {/* <NavLink
-                to="add-room"
-                className={({isActive}) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
-                  }`
-                }
-              >
-                <BsFillHouseAddFill className="w-5 h-5" />
-
-                <span className="mx-4 font-medium">Add Room</span>
-              </NavLink> */}
-
-              {/* My Listing */}
-              {/* <NavLink
-                to="my-listings"
-                className={({isActive}) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
-                  }`
-                }
-              >
-                <MdHomeWork className="w-5 h-5" />
-
-                <span className="mx-4 font-medium">My Listings</span>
-              </NavLink> */}
             </nav>
           </div>
         </div>
