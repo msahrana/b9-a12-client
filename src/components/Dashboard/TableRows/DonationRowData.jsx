@@ -4,7 +4,7 @@ import {useState} from "react";
 import DeleteModal from "../../Modal/DeleteModal";
 import {Link} from "react-router-dom";
 
-const DonationRowData = ({donation, _id}) => {
+const DonationRowData = ({donation, _id, deleteDonation}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
@@ -52,8 +52,8 @@ const DonationRowData = ({donation, _id}) => {
         <DeleteModal
           isOpen={isOpen}
           closeModal={closeModal}
-          //   handleDelete={handleDelete}
-          id={donation?._id}
+          deleteDonation={deleteDonation}
+          id={_id}
         />
       </td>
 

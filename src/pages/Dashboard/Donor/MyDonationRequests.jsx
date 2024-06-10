@@ -1,8 +1,9 @@
-import {useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure/useAxiosSecure";
 import DonationRowData from "../../../components/Dashboard/TableRows/DonationRowData";
 import {useParams} from "react-router-dom";
+import toast from "react-hot-toast";
 
 const MyDonationRequests = () => {
   const {user, loading} = useAuth();
@@ -19,6 +20,28 @@ const MyDonationRequests = () => {
       }
     },
   });
+
+  const {mutateAsync, refetch} = useMutation({
+    mutationFn: async (_id) => {
+      const {data} = await axiosSecure.delete(`/donation/${_id}`);
+      return data;
+    },
+    onSuccess: async (data) => {
+      console.log(data);
+      refetch();
+      toast.success("Blood Donation Deleted");
+    },
+  });
+
+  //  Handle Delete
+  const deleteDonation = async (id) => {
+    console.log(id);
+    try {
+      await mutateAsync(id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   if (loading) {
     return <span className="loading loading-infinity loading-lg"></span>;
@@ -93,6 +116,7 @@ const MyDonationRequests = () => {
                       key={donation._id}
                       donation={donation}
                       _id={donation._id}
+                      deleteDonation={deleteDonation}
                     ></DonationRowData>
                   ))}
                 </tbody>

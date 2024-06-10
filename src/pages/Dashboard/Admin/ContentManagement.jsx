@@ -66,15 +66,17 @@ const ContentManagement = () => {
                   <div className="font-bold">{blog.title}</div>
                 </td>
                 <td>
-                  <p className="text-green-500 font-bold">{blog.status}</p>
+                  <button className="text-green-500 font-bold">
+                    {blog.status}
+                  </button>
                 </td>
                 <th>
-                  <button className="bg-red-500 px-3 py-1 rounded-full text-white disabled:*:">
+                  <button className="bg-red-500 px-3 py-1 rounded-full text-white">
                     Delete
                   </button>
                 </th>
                 <th>
-                  <button className="bg-yellow-500 px-6 py-1 rounded-full text-white disabled">
+                  <button className="bg-yellow-500 px-6 py-1 rounded-full text-white">
                     Edit
                   </button>
                 </th>

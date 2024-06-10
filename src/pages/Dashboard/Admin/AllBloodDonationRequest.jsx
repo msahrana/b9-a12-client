@@ -1,8 +1,9 @@
 import {useParams} from "react-router-dom";
 import useAuth from "../../../hooks/useAuth/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure/useAxiosSecure";
-import {useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import DonationRowData from "../../../components/Dashboard/TableRows/DonationRowData";
+import toast from "react-hot-toast";
 
 const AllBloodDonationRequest = () => {
   const {user, loading} = useAuth();
@@ -10,7 +11,7 @@ const AllBloodDonationRequest = () => {
   const _id = useParams();
   console.log(_id);
 
-  const {data: donations = []} = useQuery({
+  const {data: donations = [], refetch} = useQuery({
     queryKey: ["donations"],
     queryFn: async () => {
       if (user?.email) {
@@ -19,6 +20,28 @@ const AllBloodDonationRequest = () => {
       }
     },
   });
+
+  const {mutateAsync} = useMutation({
+    mutationFn: async (_id) => {
+      const {data} = await axiosSecure.delete(`/donation/${_id}`);
+      return data;
+    },
+    onSuccess: async (data) => {
+      console.log(data);
+      toast.success("Blood Donation Deleted");
+      refetch();
+    },
+  });
+
+  //  Handle Delete
+  const deleteDonation = async (id) => {
+    console.log(id);
+    try {
+      await mutateAsync(id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   if (loading) {
     return <span className="loading loading-infinity loading-lg"></span>;
@@ -93,6 +116,7 @@ const AllBloodDonationRequest = () => {
                       key={donation._id}
                       donation={donation}
                       _id={donation._id}
+                      deleteDonation={deleteDonation}
                     ></DonationRowData>
                   ))}
                 </tbody>
