@@ -15,7 +15,6 @@ import UpdateDonationModal from "../../components/Modal/UpdateDonationModal";
 import ContactForm from "../../components/Contact/ContactForm";
 import DonorDashboard from "../../pages/Dashboard/Donor/DonorDashboard";
 import AddBlog from "../../pages/Blog/AddBlog";
-// import VolunteerBloodDonationRequest from "../../pages/Dashboard/Volunteer/VolunteerBloodDonationRequest";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +30,10 @@ export const router = createBrowserRouter([
         path: "/contactForm",
         element: <ContactForm></ContactForm>,
       },
+      {
+        path: "/add-blog",
+        element: <AddBlog></AddBlog>,
+      },
     ],
   },
   {
@@ -41,7 +44,6 @@ export const router = createBrowserRouter([
     path: "/register",
     element: <Register></Register>,
   },
-
   {
     path: "dashboard",
     element: <Dashboard></Dashboard>,

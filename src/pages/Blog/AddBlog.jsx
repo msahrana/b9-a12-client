@@ -36,7 +36,7 @@ const AddBlog = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-[calc(100vh-212px)]">
       <div>
         <h1 className="text-4xl font-bold my-10 text-center">Add a Blog</h1>
       </div>

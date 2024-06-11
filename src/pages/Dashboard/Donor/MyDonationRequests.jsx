@@ -11,7 +11,7 @@ const MyDonationRequests = () => {
   const _id = useParams();
   console.log(_id);
 
-  const {data: donations = []} = useQuery({
+  const {data: donations = [], refetch} = useQuery({
     queryKey: ["donations"],
     queryFn: async () => {
       if (user?.email) {
@@ -21,7 +21,7 @@ const MyDonationRequests = () => {
     },
   });
 
-  const {mutateAsync, refetch} = useMutation({
+  const {mutateAsync} = useMutation({
     mutationFn: async (_id) => {
       const {data} = await axiosSecure.delete(`/donation/${_id}`);
       return data;

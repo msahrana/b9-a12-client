@@ -50,7 +50,7 @@ const AllBloodDonationRequest = () => {
   return (
     <div>
       <h1 className="text-center text-3xl font-bold mt-6">
-        My Donation Requests:
+        All Blood Donation Requests:
       </h1>
       {/* filter */}
       <div className="ml-20">

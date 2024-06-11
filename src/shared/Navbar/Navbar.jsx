@@ -54,7 +54,7 @@ const Navbar = () => {
                 <Link to="/dashboard">Dashboard</Link>
               </li>
               <li>
-                <Link to="/blogs">Blogs</Link>
+                <Link to="/add-blog">Blogs</Link>
               </li>
               <li className="mt-2">
                 <button
