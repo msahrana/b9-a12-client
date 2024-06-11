@@ -15,6 +15,7 @@ import UpdateDonationModal from "../../components/Modal/UpdateDonationModal";
 import ContactForm from "../../components/Contact/ContactForm";
 import DonorDashboard from "../../pages/Dashboard/Donor/DonorDashboard";
 import AddBlog from "../../pages/Blog/AddBlog";
+import UserDashboard from "../../pages/Dashboard/Common/UserDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -45,10 +46,14 @@ export const router = createBrowserRouter([
     element: <Register></Register>,
   },
   {
-    path: "dashboard",
+    path: "/dashboard",
     element: <Dashboard></Dashboard>,
     children: [
       /* admin */
+      {
+        path: "/dashboard",
+        element: <UserDashboard></UserDashboard>,
+      },
       {
         path: "all-users",
         element: <AllUsers></AllUsers>,

@@ -1,7 +1,7 @@
 const DonorDashboard = () => {
   return (
     <div>
-      <h1 className="text-center">User Dashboard Here</h1>
+      <h1 className="text-center">Donor Dashboard</h1>
     </div>
   );
 };

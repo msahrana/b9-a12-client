@@ -1,6 +1,5 @@
 import {GrLogout} from "react-icons/gr";
 import {FcSettings} from "react-icons/fc";
-import {BsGraphUp} from "react-icons/bs";
 import {Link} from "react-router-dom";
 import useAuth from "../../../hooks/useAuth/useAuth";
 import logo from "/images/logo.png";
@@ -9,6 +8,7 @@ import MenuItem from "./Menu/MenuItem";
 import AdminMenu from "./Menu/AdminMenu";
 import DonorMenu from "./Menu/DonorMenu";
 import VolunteerMenu from "./Menu/VolunteerMenu";
+import {MdDashboardCustomize} from "react-icons/md";
 
 const Sidebar = () => {
   const {logOut} = useAuth();
@@ -46,15 +46,13 @@ const Sidebar = () => {
 
           {/* Nav Items */}
           <div className="flex flex-col justify-between flex-1 mt-6">
-            {/* Conditional toggle button here.. */}
-
             {/*  Menu Items */}
             <nav>
-              {/* Statistics */}
+              {/* Dashboard */}
               <MenuItem
                 label="UserDashboard"
                 address="/dashboard"
-                icon={BsGraphUp}
+                icon={MdDashboardCustomize}
               />
 
               {role === "donor" && <DonorMenu />}
