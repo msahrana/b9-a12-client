@@ -17,8 +17,9 @@ import DonorDashboard from "../../pages/Dashboard/Donor/DonorDashboard";
 import AddBlog from "../../pages/Blog/AddBlog";
 import UserDashboard from "../../pages/Dashboard/Common/UserDashboard";
 import Funding from "../../pages/Funding/Funding";
-// import CheckoutForm from "../../pages/Funding/CheckoutForm";
 import Payment from "../../pages/Funding/Payment";
+import BlogModal from "../../components/Modal/BlogModal";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -46,10 +47,6 @@ export const router = createBrowserRouter([
         path: "/payment/:price",
         element: <Payment></Payment>,
       },
-      // {
-      //   path: "/checkoutForm",
-      //   element: <CheckoutForm></CheckoutForm>,
-      // },
     ],
   },
   {
@@ -62,7 +59,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
       /* admin */
       {
@@ -100,12 +101,12 @@ export const router = createBrowserRouter([
         loader: ({params}) =>
           fetch(`${import.meta.env.VITE_API_URL}/donation/${params.id}`),
       },
-      // {
-      //   path: "update-donation-modal/:id",
-      //   element: <DonorDashboard></DonorDashboard>,
-      //   loader: ({params}) =>
-      //     fetch(`${import.meta.env.VITE_API_URL}/donation/${params.id}`),
-      // },
+      {
+        path: "blog-modal/:id",
+        element: <BlogModal></BlogModal>,
+        loader: ({params}) =>
+          fetch(`${import.meta.env.VITE_API_URL}/blogs/${params.id}`),
+      },
       /* volunteer */
       {
         path: "all-blood-donation-request",

@@ -6,9 +6,9 @@ import toast from "react-hot-toast";
 import useAxiosSecure from "../../../hooks/useAxiosSecure/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth/useAuth";
 
-const UserDataRow = ({user: userData, refetch}) => {
+const UserDataRow = ({user: userData, refetch, handleStatus}) => {
   const {user: loggedInUser} = useAuth();
-  const [isStatus, setIsStatus] = useState(true);
+  // const [isStatus, setIsStatus] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
   const {user} = userData;
@@ -47,9 +47,9 @@ const UserDataRow = ({user: userData, refetch}) => {
     }
   };
 
-  const handleStatus = () => {
-    setIsStatus(false);
-  };
+  // const handleStatus = () => {
+  //   setIsStatus(false);
+  // };
 
   return (
     <tr>
@@ -68,7 +68,7 @@ const UserDataRow = ({user: userData, refetch}) => {
         </p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <button onClick={() => handleStatus(true)}>
+        <button onClick={() => handleStatus(user)}>
           {userData?.user?.status ? (
             <p
               className={`${

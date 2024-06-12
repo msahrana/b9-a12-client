@@ -1,19 +1,42 @@
 import {Link, useParams} from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure/useAxiosSecure";
 import {useQuery} from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const ContentManagement = () => {
   const axiosSecure = useAxiosSecure();
   const _id = useParams();
   console.log(_id);
 
-  const {data: blogs = [], isLoading} = useQuery({
+  const {
+    data: blogs = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
       const {data} = await axiosSecure.get(`/blogs`);
       return data;
     },
   });
+
+  const handleStatus = (blog) => {
+    axiosSecure.patch(`/blog/${blog._id}`).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        toast.success("Status Updated");
+      }
+    });
+  };
+
+  const handleDelete = (blog) => {
+    axiosSecure.delete(`/blog/${blog._id}`).then((res) => {
+      if (res.data.deletedCount > 0) {
+        refetch();
+        toast.success("Blog Delete Successfully!");
+      }
+    });
+  };
 
   if (isLoading) {
     return <span className="loading loading-infinity loading-lg"></span>;
@@ -66,20 +89,28 @@ const ContentManagement = () => {
                   <div className="font-bold">{blog.title}</div>
                 </td>
                 <td>
-                  <button className="text-green-500 font-bold">
+                  <button
+                    onClick={() => handleStatus(blog)}
+                    className="text-green-500 font-bold"
+                  >
                     {blog.status}
                   </button>
                 </td>
-                <th>
-                  <button className="bg-red-500 px-3 py-1 rounded-full text-white">
+                <td>
+                  <button
+                    onClick={() => handleDelete(blog)}
+                    className="bg-red-500 px-3 py-1 rounded-full text-white"
+                  >
                     Delete
                   </button>
-                </th>
-                <th>
-                  <button className="bg-yellow-500 px-6 py-1 rounded-full text-white">
-                    Edit
-                  </button>
-                </th>
+                </td>
+                <td>
+                  <Link to={`/dashboard/blog-modal/${blog._id}`}>
+                    <button className="bg-yellow-500 px-6 py-1 rounded-full text-white">
+                      Edit
+                    </button>
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>

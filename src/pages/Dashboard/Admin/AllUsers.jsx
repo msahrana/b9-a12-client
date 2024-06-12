@@ -1,6 +1,7 @@
 import {useQuery} from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure/useAxiosSecure";
 import UserDataRow from "../../../components/Dashboard/TableRows/UserDataRow";
+import toast from "react-hot-toast";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -16,6 +17,15 @@ const AllUsers = () => {
       return data;
     },
   });
+
+  const handleStatus = (user) => {
+    axiosSecure.patch(`/user/status/${user._id}`).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        toast.success("Status Updated");
+      }
+    });
+  };
 
   if (isLoading) {
     return <span className="loading loading-infinity loading-lg"></span>;
@@ -80,6 +90,7 @@ const AllUsers = () => {
                       key={user?._id}
                       user={user}
                       refetch={refetch}
+                      handleStatus={handleStatus}
                     />
                   ))}
                 </tbody>
