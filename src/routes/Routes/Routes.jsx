@@ -20,6 +20,8 @@ import Funding from "../../pages/Funding/Funding";
 import Payment from "../../pages/Funding/Payment";
 import BlogModal from "../../components/Modal/BlogModal";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import DonationRequests from "../../pages/DonationRequests/DonationRequests";
+import BloodDonationRequestDetails from "../../pages/DonationRequests/BloodDonationRequestDetails";
 
 export const router = createBrowserRouter([
   {
@@ -41,11 +43,29 @@ export const router = createBrowserRouter([
       },
       {
         path: "/funding",
-        element: <Funding></Funding>,
+        element: (
+          <PrivateRoute>
+            <Funding></Funding>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/payment/:price",
         element: <Payment></Payment>,
+      },
+      {
+        path: "/donation-requests",
+        element: <DonationRequests></DonationRequests>,
+      },
+      {
+        path: "/bloodDonationRequestDetails/:id",
+        element: (
+          <PrivateRoute>
+            <BloodDonationRequestDetails></BloodDonationRequestDetails>
+          </PrivateRoute>
+        ),
+        loader: ({params}) =>
+          fetch(`${import.meta.env.VITE_API_URL}/donation/${params.id}`),
       },
     ],
   },
