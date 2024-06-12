@@ -16,6 +16,9 @@ import ContactForm from "../../components/Contact/ContactForm";
 import DonorDashboard from "../../pages/Dashboard/Donor/DonorDashboard";
 import AddBlog from "../../pages/Blog/AddBlog";
 import UserDashboard from "../../pages/Dashboard/Common/UserDashboard";
+import Funding from "../../pages/Funding/Funding";
+// import CheckoutForm from "../../pages/Funding/CheckoutForm";
+import Payment from "../../pages/Funding/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +38,18 @@ export const router = createBrowserRouter([
         path: "/add-blog",
         element: <AddBlog></AddBlog>,
       },
+      {
+        path: "/funding",
+        element: <Funding></Funding>,
+      },
+      {
+        path: "/payment/:price",
+        element: <Payment></Payment>,
+      },
+      // {
+      //   path: "/checkoutForm",
+      //   element: <CheckoutForm></CheckoutForm>,
+      // },
     ],
   },
   {
@@ -85,6 +100,12 @@ export const router = createBrowserRouter([
         loader: ({params}) =>
           fetch(`${import.meta.env.VITE_API_URL}/donation/${params.id}`),
       },
+      // {
+      //   path: "update-donation-modal/:id",
+      //   element: <DonorDashboard></DonorDashboard>,
+      //   loader: ({params}) =>
+      //     fetch(`${import.meta.env.VITE_API_URL}/donation/${params.id}`),
+      // },
       /* volunteer */
       {
         path: "all-blood-donation-request",
