@@ -1,10 +1,14 @@
 import Img1 from "/images/welcome1.png";
 import Img2 from "/images/welcome2.png";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+AOS.init();
 
 const Welcome = () => {
   return (
     <div className="flex flex-col md:flex-row lg:flex-row gap-6 my-10 md:px-32">
-      <div className="md:w-1/2">
+      <div className="md:w-1/2" data-aos="fade-up" data-aos-duration="2000">
         <img src={Img1} alt="" />
         <img
           className="md:translate-x-72 md:-translate-y-96 md:absolute"
@@ -12,7 +16,11 @@ const Welcome = () => {
           alt=""
         />
       </div>
-      <div className="md:mt-40 space-y-3 md:w-1/2 text-justify p-2">
+      <div
+        className="md:mt-40 space-y-3 md:w-1/2 text-justify p-2"
+        data-aos="zoom-in"
+        data-aos-duration="2000"
+      >
         <h2 className="text-red-500 font-semibold">HELP THE PEOPLE IN NEED</h2>
         <h1 className="text-2xl md:text-5xl font-bold">
           Welcome to Blood <br />
