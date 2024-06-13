@@ -13,14 +13,15 @@ const AllUsers = () => {
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const {data} = await axiosSecure(`/users`);
+      const {data} = await axiosSecure("/users");
       return data;
     },
   });
 
   const handleStatus = (user) => {
     axiosSecure.patch(`/user/status/${user._id}`).then((res) => {
-      if (res.data.modifiedCount > 0) {
+      console.log(res);
+      if (res.data.acknowledged) {
         refetch();
         toast.success("Status Updated");
       }

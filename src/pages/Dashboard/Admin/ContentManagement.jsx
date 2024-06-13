@@ -2,8 +2,10 @@ import {Link, useParams} from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure/useAxiosSecure";
 import {useQuery} from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import useRole from "../../../hooks/useRole/useRole";
 
 const ContentManagement = () => {
+  const [role] = useRole();
   const axiosSecure = useAxiosSecure();
   const _id = useParams();
   console.log(_id);
@@ -89,27 +91,45 @@ const ContentManagement = () => {
                   <div className="font-bold">{blog.title}</div>
                 </td>
                 <td>
-                  <button
-                    onClick={() => handleStatus(blog)}
-                    className="text-green-500 font-bold"
-                  >
-                    {blog.status}
-                  </button>
+                  {role === "admin" ? (
+                    <button
+                      onClick={() => handleStatus(blog)}
+                      className="text-green-500 font-bold"
+                    >
+                      {blog.status}
+                    </button>
+                  ) : (
+                    <button className="text-green-500 font-bold">
+                      {blog.status}
+                    </button>
+                  )}
                 </td>
                 <td>
-                  <button
-                    onClick={() => handleDelete(blog)}
-                    className="bg-red-500 px-3 py-1 rounded-full text-white"
-                  >
-                    Delete
-                  </button>
+                  {role === "admin" ? (
+                    <button
+                      onClick={() => handleDelete(blog)}
+                      className="bg-red-500 px-3 py-1 rounded-full text-white"
+                    >
+                      Delete
+                    </button>
+                  ) : (
+                    <button className="bg-red-500 px-3 py-1 rounded-full text-white">
+                      Delete
+                    </button>
+                  )}
                 </td>
                 <td>
-                  <Link to={`/dashboard/blog-modal/${blog._id}`}>
+                  {role === "admin" ? (
+                    <Link to={`/dashboard/blog-modal/${blog._id}`}>
+                      <button className="bg-yellow-500 px-6 py-1 rounded-full text-white">
+                        Edit
+                      </button>
+                    </Link>
+                  ) : (
                     <button className="bg-yellow-500 px-6 py-1 rounded-full text-white">
                       Edit
                     </button>
-                  </Link>
+                  )}
                 </td>
               </tr>
             ))}

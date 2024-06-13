@@ -8,12 +8,14 @@ import {
 } from "firebase/auth";
 import {createContext, useEffect, useState} from "react";
 import app from "../../firebase/firebase.Config";
-import axios from "axios";
+// import axios from "axios";
+import useAxiosPublic from "../../hooks/useAxiosPublic/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 
 const AuthProvider = ({children}) => {
+  const axiosPublic = useAxiosPublic();
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -37,21 +39,32 @@ const AuthProvider = ({children}) => {
 
   const logOut = async () => {
     setLoading(true);
-    await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
-      withCredentials: true,
-    });
+    // await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
+    //   withCredentials: true,
+    // });
     return signOut(auth);
   };
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
+      if (currentUser) {
+        const userInfo = {email: currentUser.email};
+        axiosPublic.post("/jwt", userInfo).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+            setLoading(false);
+          }
+        });
+      } else {
+        localStorage.removeItem("access-token");
+        setLoading(false);
+      }
     });
     return () => {
       unSubscribe();
     };
-  }, []);
+  }, [axiosPublic]);
 
   const authInfo = {
     user,

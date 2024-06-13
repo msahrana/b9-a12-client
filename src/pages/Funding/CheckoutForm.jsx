@@ -9,6 +9,7 @@ const CheckoutForm = () => {
   const {user} = useAuth();
   const {price} = useParams();
   const priceNumber = parseFloat(price);
+  console.log(price);
   console.log(typeof priceNumber);
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
@@ -22,6 +23,7 @@ const CheckoutForm = () => {
       axiosSecure
         .post("/create-payment-intent", {price: priceNumber})
         .then((res) => {
+          console.log(res);
           setClientSecret(res.data.clientSecret);
         });
     }
@@ -47,6 +49,7 @@ const CheckoutForm = () => {
       console.log("payment-method", paymentMethod);
       setError("");
     }
+    console.log(clientSecret);
     /* confirm payment */
     const {paymentIntent, error: confirmError} =
       await stripe.confirmCardPayment(clientSecret, {

@@ -68,7 +68,7 @@ const UserDataRow = ({user: userData, refetch, handleStatus}) => {
         </p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <button onClick={() => handleStatus(user)}>
+        <button onClick={() => handleStatus(userData)}>
           {userData?.user?.status ? (
             <p
               className={`${

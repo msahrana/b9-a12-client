@@ -3,9 +3,11 @@ import {format} from "date-fns";
 import {useState} from "react";
 import DeleteModal from "../../Modal/DeleteModal";
 import {Link} from "react-router-dom";
+import useRole from "../../../hooks/useRole/useRole";
 
 const DonationRowData = ({donation, _id, deleteDonation}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [role] = useRole();
 
   const closeModal = () => {
     setIsOpen(false);
@@ -40,6 +42,7 @@ const DonationRowData = ({donation, _id, deleteDonation}) => {
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <button
           onClick={() => setIsOpen(true)}
+          disabled={role !== "admin"}
           className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
         >
           <span
@@ -59,7 +62,10 @@ const DonationRowData = ({donation, _id, deleteDonation}) => {
 
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <Link to={`/dashboard/update-donation-modal/${_id}`}>
-          <button className="bg-orange-500 px-4 py-0 rounded-full font-semibold">
+          <button
+            disabled={role !== "admin"}
+            className="bg-orange-500 px-4 py-0 rounded-full font-semibold"
+          >
             Edit
           </button>
         </Link>
