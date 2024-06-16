@@ -22,6 +22,7 @@ import BlogModal from "../../components/Modal/BlogModal";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import DonationRequests from "../../pages/DonationRequests/DonationRequests";
 import BloodDonationRequestDetails from "../../pages/DonationRequests/BloodDonationRequestDetails";
+import SearchPage from "../../components/Search/SearchPage";
 
 export const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ export const router = createBrowserRouter([
         ),
         loader: ({params}) =>
           fetch(`${import.meta.env.VITE_API_URL}/donation/${params.id}`),
+      },
+      {
+        path: "/search",
+        element: <SearchPage></SearchPage>,
       },
     ],
   },

@@ -5,9 +5,11 @@ import {useMutation, useQuery} from "@tanstack/react-query";
 import DeleteModal from "../../../components/Modal/DeleteModal";
 import {useState} from "react";
 import toast from "react-hot-toast";
+import UpdateDashboardModal from "../../../components/Modal/UpdateDashboardModal";
 
 const DonorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const {user, loading} = useAuth();
   const axiosSecure = useAxiosSecure();
   const _id = useParams();
@@ -49,6 +51,44 @@ const DonorDashboard = () => {
     }
   };
 
+  const handleStatus = (donation) => {
+    axiosSecure.patch(`/donation/status/${donation._id}`).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        // const data = blogs.find((item) => item === blog);
+        // setBlogs(data);
+        toast.success("Donation Status Updated!");
+      }
+    });
+  };
+
+  /* status update */
+  const {mutate} = useMutation({
+    mutationFn: (status) => {
+      const {data} = axiosSecure.patch(`/our-donation/${status._id}`, {
+        status: status.status,
+      });
+      return data;
+    },
+    onSuccess: (data) => {
+      refetch();
+      console.log(data);
+      toast.success("User role updated successfully!");
+      setOpen(false);
+    },
+  });
+  //   modal handler
+  const modalHandler = async (selected) => {
+    const userStatus = {
+      status: selected,
+    };
+    try {
+      mutate(userStatus);
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    }
+  };
+
   if (loading) {
     return <span className="loading loading-infinity loading-lg"></span>;
   }
@@ -73,6 +113,7 @@ const DonorDashboard = () => {
               <th>Action</th>
               <th>Action</th>
               <th>Action</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -88,7 +129,14 @@ const DonorDashboard = () => {
                 </td>
                 <td>{donation?.date}</td>
                 <td>{donation?.time}</td>
-                <td>{donation?.status}</td>
+                <td>
+                  <button
+                    onClick={() => handleStatus(donation)}
+                    className="text-green-500 font-bold"
+                  >
+                    {donation?.status}
+                  </button>
+                </td>
 
                 <td>
                   <button
@@ -124,6 +172,25 @@ const DonorDashboard = () => {
                       View
                     </button>
                   </Link>
+                </td>
+
+                <td className="px-5 py-5 bg-white text-sm">
+                  <button
+                    onClick={() => setOpen(true)}
+                    className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 bg-blue-200 opacity-50 rounded-full"
+                    ></span>
+                    <span className="relative">Update Status</span>
+                  </button>
+                  <UpdateDashboardModal
+                    open={open}
+                    setOpen={setOpen}
+                    modalHandler={modalHandler}
+                    donation={donation}
+                  />
                 </td>
               </tr>
             ))}
