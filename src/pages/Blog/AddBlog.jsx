@@ -27,8 +27,8 @@ const AddBlog = () => {
       };
       const {data} = await axiosSecure.post("/blogs", blogData);
       console.log(data);
-      toast.success("Blog Create Successfully!");
       navigate("/dashboard/content-management");
+      toast.success("Blog Create Successfully!");
     } catch (error) {
       console.log(error);
       toast.error(error.massage);

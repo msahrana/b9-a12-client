@@ -42,7 +42,7 @@ const DonationRowData = ({donation, _id, deleteDonation}) => {
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <button
           onClick={() => setIsOpen(true)}
-          disabled={role !== "admin"}
+          disabled={role !== "admin" && role !== "donor"}
           className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
         >
           <span
@@ -56,14 +56,14 @@ const DonationRowData = ({donation, _id, deleteDonation}) => {
           isOpen={isOpen}
           closeModal={closeModal}
           deleteDonation={deleteDonation}
-          id={_id}
+          id={donation._id}
         />
       </td>
 
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <Link to={`/dashboard/update-donation-modal/${_id}`}>
           <button
-            disabled={role !== "admin"}
+            disabled={role !== "admin" && role !== "donor"}
             className="bg-orange-500 px-4 py-0 rounded-full font-semibold"
           >
             Edit

@@ -5,13 +5,16 @@ import {useMutation} from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../hooks/useAxiosSecure/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth/useAuth";
+import UpdateStatusModal from "../../Modal/UpdateStatusModal";
 
 const UserDataRow = ({user: userData, refetch, handleStatus}) => {
   const {user: loggedInUser} = useAuth();
-  // const [isStatus, setIsStatus] = useState(true);
+  const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
   const {user} = userData;
+
+  /* role update */
   const {mutateAsync} = useMutation({
     mutationFn: async (role) => {
       const {data} = await axiosSecure.put(`/users/update/${userData?.email}`, {
@@ -27,14 +30,12 @@ const UserDataRow = ({user: userData, refetch, handleStatus}) => {
       setIsOpen(false);
     },
   });
-
   //   modal handler
   const modalHandler = async (selected) => {
     if (loggedInUser.email === user.email) {
       toast.error("Action Not Allowed");
       return setIsOpen(false);
     }
-
     const userRole = {
       role: selected,
       status: "active",
@@ -47,9 +48,34 @@ const UserDataRow = ({user: userData, refetch, handleStatus}) => {
     }
   };
 
-  // const handleStatus = () => {
-  //   setIsStatus(false);
-  // };
+  /* status update */
+  const {mutate} = useMutation({
+    mutationFn: (status) => {
+      const {data} = axiosSecure.put(`/users/status/${userData?.email}`, {
+        role: userData.user.role,
+        status: status.status,
+      });
+      return data;
+    },
+    onSuccess: (data) => {
+      refetch();
+      console.log(data);
+      toast.success("User role updated successfully!");
+      setOpen(false);
+    },
+  });
+  //   modal handler
+  const modalHandler2 = async (selected) => {
+    const userStatus = {
+      status: selected,
+    };
+    try {
+      mutate(userStatus);
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    }
+  };
 
   return (
     <tr>
@@ -101,6 +127,25 @@ const UserDataRow = ({user: userData, refetch, handleStatus}) => {
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           modalHandler={modalHandler}
+          user={userData}
+        />
+      </td>
+
+      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <button
+          onClick={() => setOpen(true)}
+          className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+        >
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 bg-blue-200 opacity-50 rounded-full"
+          ></span>
+          <span className="relative">Update Status</span>
+        </button>
+        <UpdateStatusModal
+          open={open}
+          setOpen={setOpen}
+          modalHandler2={modalHandler2}
           user={userData}
         />
       </td>

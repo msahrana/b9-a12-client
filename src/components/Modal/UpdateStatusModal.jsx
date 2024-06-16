@@ -13,18 +13,14 @@ import {
 } from "@headlessui/react";
 import {BsCheckLg} from "react-icons/bs";
 import {AiOutlineDown} from "react-icons/ai";
-const roles = ["active", "blocked"];
+const status = ["active", "blocked"];
 
-const UpdateStatusModal = ({setIsOpen, isOpen, modalHandler, user}) => {
+const UpdateStatusModal = ({setOpen, open, modalHandler2, user}) => {
   const [selected, setSelected] = useState(user?.status);
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
-      <Dialog
-        as="div"
-        className="relative z-10"
-        onClose={() => setIsOpen(false)}
-      >
+    <Transition appear show={open} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={() => setOpen(false)}>
         <TransitionChild
           as={Fragment}
           enter="ease-out duration-300"
@@ -53,7 +49,7 @@ const UpdateStatusModal = ({setIsOpen, isOpen, modalHandler, user}) => {
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"
                 >
-                  Update User Role
+                  Update Status Role
                 </DialogTitle>
                 <div className="mt-4 w-full">
                   <Listbox value={selected} onChange={setSelected}>
@@ -74,11 +70,11 @@ const UpdateStatusModal = ({setIsOpen, isOpen, modalHandler, user}) => {
                         leaveTo="opacity-0"
                       >
                         <ListboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
-                          {roles.map((role, roleIdx) => (
+                          {status.map((status, stateIdx) => (
                             <ListboxOption
-                              key={roleIdx}
+                              key={stateIdx}
                               className="relative cursor-default select-none py-2 pl-10 pr-4 text-gray-900 data-[focus]:bg-amber-100  data-[focus]:text-amber-900"
-                              value={role}
+                              value={status}
                             >
                               {({selected}) => (
                                 <>
@@ -87,7 +83,7 @@ const UpdateStatusModal = ({setIsOpen, isOpen, modalHandler, user}) => {
                                       selected ? "font-medium" : "font-normal"
                                     }`}
                                   >
-                                    {role}
+                                    {status}
                                   </span>
                                   {selected ? (
                                     <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
@@ -112,14 +108,14 @@ const UpdateStatusModal = ({setIsOpen, isOpen, modalHandler, user}) => {
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
-                    onClick={() => modalHandler(selected)}
+                    onClick={() => modalHandler2(selected)}
                   >
                     Update
                   </button>
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => setOpen(false)}
                   >
                     Cancel
                   </button>
