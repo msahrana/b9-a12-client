@@ -38,9 +38,9 @@ const AddBlog = () => {
   return (
     <div className="min-h-[calc(100vh-212px)]">
       <div>
-        <h1 className="text-4xl font-bold my-10 text-center">Add a Blog</h1>
+        <h1 className="md:text-4xl font-bold my-10 text-center">Add a Blog</h1>
       </div>
-      <div className="w-1/3 container mx-auto border-2 p-3 rounded-md">
+      <div className="w-full md:w-1/3 container md:mx-auto border-2 p-3 rounded-md">
         <form onSubmit={handleSubmit}>
           <div className="w-full">
             <h1 className="text-xl font-semibold">Title:</h1>

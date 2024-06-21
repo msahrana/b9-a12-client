@@ -17,11 +17,11 @@ const Funding = () => {
 
   return (
     <div className="min-h-[calc(100vh-212px)]">
-      <h1 className="text-4xl font-bold my-10 text-center">
+      <h1 className="md:text-4xl font-bold my-10 text-center">
         Please Funding a Small Amount:
       </h1>
       {/* form info */}
-      <div className="w-1/3 mx-auto p-3 border-2 rounded-md">
+      <div className="w-full md:w-1/3 mx-auto p-3 border-2 rounded-md">
         <form onSubmit={handleSubmit}>
           <div className="mb-5">
             <h2>Full Name:</h2>
