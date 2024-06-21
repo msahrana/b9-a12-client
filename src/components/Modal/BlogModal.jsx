@@ -8,7 +8,6 @@ const BlogModal = () => {
   const {setLoading} = useAuth();
   const axiosSecure = useAxiosSecure();
   const item = useLoaderData();
-  console.log(item);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -17,7 +16,6 @@ const BlogModal = () => {
     const title = form.title.value;
     const image = form.image.files[0];
     const content = form.content.value;
-    console.log(title, image, content);
     try {
       setLoading(true);
       const image_url = await imageUpload(image);

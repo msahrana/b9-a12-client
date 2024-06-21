@@ -19,7 +19,7 @@ const TotalFund = () => {
     };
     getData();
   }, [currentPage, itemsPerPage]);
-  console.log(funds);
+
   useEffect(() => {
     const getCount = async () => {
       const {data} = await axios(

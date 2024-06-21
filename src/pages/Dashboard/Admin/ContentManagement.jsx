@@ -18,7 +18,6 @@ const ContentManagement = () => {
   const [filter, setFilter] = useState("");
   const _id = useParams();
   console.log(_id);
-  console.log(blogs);
 
   useEffect(() => {
     const getData = async () => {

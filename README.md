@@ -1,5 +1,5 @@
-<!-- Site Name: Life Line
-Site URL:
+Site Name: Life Line
+Site URL: https://life-line-fa28d.web.app
 Admin User: sayed88@gmail.com
 Password: 123456
 
@@ -25,8 +25,4 @@ Bullet Point:
 
 - Profile Section: In Profile section you can found a page, here your role, name and email well be shown.
 
-- Donation Requests Section: In this section all donation request information by showing card item.
-
-npm Package:
-
-- [react form](https://react-hook-form.com/get-started) -->
+- Donation Requests Section: In this section all donation request information is showing by card item.

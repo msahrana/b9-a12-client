@@ -37,7 +37,6 @@ const UpdateDonationModal = () => {
         message,
         status: "pending",
       };
-      console.log(donation);
       const {data} = await axiosSecure.put(`/donation/${item?._id}`, donation);
       if (data.modifiedCount > 0) {
         toast.success("Donation Update Successfully!");

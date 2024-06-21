@@ -15,7 +15,6 @@ const AddBlog = () => {
     const title = form.title.value;
     const image = form.image.files[0];
     const content = form.content.value;
-    console.log(title, image, content);
     try {
       setLoading(true);
       const image_url = await imageUpload(image);

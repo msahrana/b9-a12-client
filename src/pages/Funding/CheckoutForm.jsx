@@ -10,8 +10,6 @@ const CheckoutForm = () => {
   const {user} = useAuth();
   const {price} = useParams();
   const priceNumber = parseFloat(price);
-  console.log(price);
-  console.log(typeof priceNumber);
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
   const [error, setError] = useState("");
@@ -46,13 +44,11 @@ const CheckoutForm = () => {
       card,
     });
     if (error) {
-      console.log("payment-error", error);
       setError(error.message);
     } else {
       console.log("payment-method", paymentMethod);
       setError("");
     }
-    console.log(clientSecret);
     /* confirm payment */
     const {paymentIntent, error: confirmError} =
       await stripe.confirmCardPayment(clientSecret, {
@@ -67,7 +63,6 @@ const CheckoutForm = () => {
     if (confirmError) {
       console.log("confirm-error");
     } else {
-      console.log("payment-intent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
         setTransactionId(paymentIntent.id);
         /* save payment info */
@@ -78,7 +73,6 @@ const CheckoutForm = () => {
           transactionId: paymentIntent.id,
         };
         const {data} = await axiosSecure.post("/payments", payment);
-        console.log("payment-save", data);
         if (data?.paymentResult?.insertedId) {
           toast.success("Payment Successful");
         }

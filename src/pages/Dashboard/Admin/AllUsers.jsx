@@ -20,7 +20,6 @@ const AllUsers = () => {
 
   const handleStatus = (user) => {
     axiosSecure.patch(`/user/status/${user._id}`).then((res) => {
-      console.log(res);
       if (res.data.acknowledged) {
         refetch();
         toast.success("Status Updated");
