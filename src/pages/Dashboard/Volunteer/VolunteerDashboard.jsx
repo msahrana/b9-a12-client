@@ -50,7 +50,7 @@ const VolunteerDashboard = () => {
           <AiFillDollarCircle className="text-6xl" />
           <div className="ml-5">
             <h1 className="text-3xl font-semibold">Total Funding:</h1>
-            <p className="text-5xl">5</p>
+            <p className="text-5xl">{statData?.totalPayments}</p>
           </div>
         </div>
       </div>

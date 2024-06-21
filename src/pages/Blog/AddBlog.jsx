@@ -29,6 +29,7 @@ const AddBlog = () => {
       console.log(data);
       navigate("/dashboard/content-management");
       toast.success("Blog Create Successfully!");
+      setLoading(false);
     } catch (error) {
       console.log(error);
       toast.error(error.massage);

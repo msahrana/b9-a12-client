@@ -31,6 +31,7 @@ const BlogModal = () => {
       console.log(data);
       toast.success("Blog Update Successfully!");
       navigate("/dashboard/content-management");
+      setLoading(false);
     } catch (error) {
       console.log(error);
       toast.error(error.massage);

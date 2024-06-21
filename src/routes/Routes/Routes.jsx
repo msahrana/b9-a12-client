@@ -23,6 +23,7 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import DonationRequests from "../../pages/DonationRequests/DonationRequests";
 import BloodDonationRequestDetails from "../../pages/DonationRequests/BloodDonationRequestDetails";
 import SearchPage from "../../components/Search/SearchPage";
+import TotalFund from "../../pages/TotalFund/TotalFund";
 
 export const router = createBrowserRouter([
   {
@@ -136,6 +137,14 @@ export const router = createBrowserRouter([
       {
         path: "all-blood-donation-request",
         element: <AllBloodDonationRequest></AllBloodDonationRequest>,
+      },
+      {
+        path: "total-fund",
+        element: (
+          <PrivateRoute>
+            <TotalFund></TotalFund>
+          </PrivateRoute>
+        ),
       },
       /* common */
       {

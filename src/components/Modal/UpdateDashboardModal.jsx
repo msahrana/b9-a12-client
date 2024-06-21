@@ -13,7 +13,7 @@ import {
 } from "@headlessui/react";
 import {BsCheckLg} from "react-icons/bs";
 import {AiOutlineDown} from "react-icons/ai";
-const status = ["done", "cancel"];
+const status = ["inprogress", "done", "cancel"];
 
 const UpdateDashboardModal = ({setOpen, open, modalHandler, donation}) => {
   const [selected, setSelected] = useState(donation?.status);

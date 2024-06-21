@@ -18,6 +18,7 @@ const ContentManagement = () => {
   const [filter, setFilter] = useState("");
   const _id = useParams();
   console.log(_id);
+  console.log(blogs);
 
   useEffect(() => {
     const getData = async () => {
@@ -67,9 +68,14 @@ const ContentManagement = () => {
   const handleStatus = (blog) => {
     axiosSecure.patch(`/blog/${blog._id}`).then((res) => {
       if (res.data.modifiedCount > 0) {
-        // const data = blogs.find((item) => item === blog);
-        // setBlogs(data);
-        toast.success("Status Updated");
+        const data = blogs.map((item) => {
+          if (item._id === blog._id) {
+            item.status = "published";
+          }
+          return item;
+        });
+        setBlogs(data);
+        toast.success("Blog Status Updated!");
       }
     });
   };

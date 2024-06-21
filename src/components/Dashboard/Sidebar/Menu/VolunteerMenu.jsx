@@ -1,6 +1,6 @@
 import {MdBloodtype} from "react-icons/md";
 import MenuItem from "./MenuItem";
-import {FaUserCog} from "react-icons/fa";
+import {FaDollarSign, FaUserCog} from "react-icons/fa";
 
 const VolunteerMenu = () => {
   return (
@@ -15,6 +15,7 @@ const VolunteerMenu = () => {
         label="Content Management"
         address="content-management"
       />
+      <MenuItem icon={FaDollarSign} label="Total Fund" address="total-fund" />
     </>
   );
 };

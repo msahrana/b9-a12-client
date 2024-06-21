@@ -54,8 +54,7 @@ const DonorDashboard = () => {
   const handleStatus = (donation) => {
     axiosSecure.patch(`/donation/status/${donation._id}`).then((res) => {
       if (res.data.modifiedCount > 0) {
-        // const data = blogs.find((item) => item === blog);
-        // setBlogs(data);
+        refetch();
         toast.success("Donation Status Updated!");
       }
     });
@@ -176,6 +175,7 @@ const DonorDashboard = () => {
 
                 <td className="px-5 py-5 bg-white text-sm">
                   <button
+                    disabled={donation.status === "pending"}
                     onClick={() => setOpen(true)}
                     className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
                   >

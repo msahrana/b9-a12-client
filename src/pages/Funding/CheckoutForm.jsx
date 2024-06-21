@@ -4,6 +4,7 @@ import {useElements, useStripe, CardElement} from "@stripe/react-stripe-js";
 import useAxiosSecure from "../../hooks/useAxiosSecure/useAxiosSecure";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth/useAuth";
+// import {format} from "date-fns";
 
 const CheckoutForm = () => {
   const {user} = useAuth();
@@ -21,13 +22,15 @@ const CheckoutForm = () => {
   useEffect(() => {
     if (priceNumber > 0) {
       axiosSecure
-        .post("/create-payment-intent", {price: priceNumber})
+        .post("/create-payment-intent", {
+          price: priceNumber,
+        })
         .then((res) => {
           console.log(res);
           setClientSecret(res.data.clientSecret);
         });
     }
-  }, [axiosSecure, priceNumber]);
+  }, [axiosSecure, priceNumber, user.displayName]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -69,7 +72,9 @@ const CheckoutForm = () => {
         setTransactionId(paymentIntent.id);
         /* save payment info */
         const payment = {
+          name: user?.displayName,
           price: price,
+          date: new Date().toLocaleDateString(),
           transactionId: paymentIntent.id,
         };
         const {data} = await axiosSecure.post("/payments", payment);

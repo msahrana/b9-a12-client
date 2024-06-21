@@ -1,4 +1,4 @@
-import {FaUserCog, FaUsers} from "react-icons/fa";
+import {FaDollarSign, FaUserCog, FaUsers} from "react-icons/fa";
 import MenuItem from "./MenuItem";
 import {MdBloodtype} from "react-icons/md";
 
@@ -16,6 +16,7 @@ const AdminMenu = () => {
         label="Content Management"
         address="content-management"
       />
+      <MenuItem icon={FaDollarSign} label="Total Fund" address="total-fund" />
     </>
   );
 };
