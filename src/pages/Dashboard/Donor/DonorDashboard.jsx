@@ -139,6 +139,7 @@ const DonorDashboard = () => {
 
                 <td>
                   <button
+                    disabled={donation.status === "pending"}
                     onClick={() => setIsOpen(true)}
                     className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
                   >
