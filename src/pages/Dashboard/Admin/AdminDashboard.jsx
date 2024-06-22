@@ -23,7 +23,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="md:ml-16">
-      <h1 className="text-4xl font-semibold mb-10">
+      <h1 className="text-4xl text-center font-semibold mb-10">
         <span className="text-red-500">Hi,</span> Welcome
         <span className="text-green-500"> Mr. {user?.displayName}</span>
       </h1>

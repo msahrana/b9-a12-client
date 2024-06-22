@@ -159,7 +159,10 @@ const DonorDashboard = () => {
 
                 <td>
                   <Link to={`/dashboard/update-donation-modal/${donation._id}`}>
-                    <button className="bg-orange-500 px-4 py-0 rounded-full font-semibold">
+                    <button
+                      disabled={donation.status === "pending"}
+                      className="bg-orange-500 px-4 py-0 rounded-full font-semibold"
+                    >
                       Edit
                     </button>
                   </Link>
@@ -167,7 +170,10 @@ const DonorDashboard = () => {
 
                 <td>
                   <Link to={`/bloodDonationRequestDetails/${donation._id}`}>
-                    <button className="bg-blue-500 text-white px-4 py-0 rounded-full font-semibold">
+                    <button
+                      disabled={donation.status === "pending"}
+                      className="bg-blue-500 text-white px-4 py-0 rounded-full font-semibold"
+                    >
                       View
                     </button>
                   </Link>
