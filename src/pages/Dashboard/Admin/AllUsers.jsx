@@ -2,21 +2,27 @@ import {useQuery} from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure/useAxiosSecure";
 import UserDataRow from "../../../components/Dashboard/TableRows/UserDataRow";
 import toast from "react-hot-toast";
+import {useState} from "react";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
+  const [filter, setFilter] = useState("");
 
   const {
-    data: users = [],
+    data: allUsers = [],
     isLoading,
     refetch,
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const {data} = await axiosSecure("/users");
+      const {data} = await axiosSecure(`/users?&filter=${filter}`);
       return data;
     },
   });
+
+  const handleReset = () => {
+    setFilter("");
+  };
 
   const handleStatus = (user) => {
     axiosSecure.patch(`/user/status/${user._id}`).then((res) => {
@@ -35,6 +41,28 @@ const AllUsers = () => {
     <>
       <div className="container mx-auto px-4 sm:px-8 md:ml-9">
         <h1 className="text-3xl font-bold text-center mt-10">All Users:</h1>
+        {/* filter */}
+        <div className="ml-20 flex gap-6">
+          <div>
+            <select
+              onChange={(e) => {
+                setFilter(e.target.value);
+              }}
+              value={filter}
+              name="status"
+              id="status"
+              className="border p-4 rounded-lg"
+            >
+              <option>Filter By Status</option>
+              <option value="active">Active</option>
+              <option value="blocked">Blocked</option>
+            </select>
+          </div>
+          {/* reset */}
+          <button onClick={handleReset} className="btn">
+            Reset
+          </button>
+        </div>
         <div className="py-8">
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
@@ -92,7 +120,7 @@ const AllUsers = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user) => (
+                  {allUsers.map((user) => (
                     <UserDataRow
                       key={user?._id}
                       user={user}

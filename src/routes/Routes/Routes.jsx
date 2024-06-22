@@ -24,6 +24,8 @@ import DonationRequests from "../../pages/DonationRequests/DonationRequests";
 import BloodDonationRequestDetails from "../../pages/DonationRequests/BloodDonationRequestDetails";
 import SearchPage from "../../components/Search/SearchPage";
 import TotalFund from "../../pages/TotalFund/TotalFund";
+import AllBlogs from "../../pages/All Blogs/AllBlogs";
+import BlogDetails from "../../pages/All Blogs/BlogDetails";
 
 export const router = createBrowserRouter([
   {
@@ -50,6 +52,16 @@ export const router = createBrowserRouter([
             <Funding></Funding>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/all-blogs",
+        element: <AllBlogs></AllBlogs>,
+      },
+      {
+        path: "/blogDetails/:id",
+        element: <BlogDetails></BlogDetails>,
+        loader: ({params}) =>
+          fetch(`${import.meta.env.VITE_API_URL}/blogs/${params.id}`),
       },
       {
         path: "/payment/:price",

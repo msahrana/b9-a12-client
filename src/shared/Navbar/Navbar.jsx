@@ -24,6 +24,9 @@ const Navbar = () => {
             <li className="hidden lg:flex">
               <Link to="/funding">Funding</Link>
             </li>
+            <li className="hidden lg:flex">
+              <Link to="/all-blogs">All Blogs</Link>
+            </li>
             {!user && (
               <li>
                 <Link to="/login">Login</Link>
@@ -54,7 +57,7 @@ const Navbar = () => {
                 <Link to="/dashboard">Dashboard</Link>
               </li>
               <li>
-                <Link to="/add-blog">Blogs</Link>
+                <Link to="/add-blog"> Add Blogs</Link>
               </li>
               <li className="mt-2">
                 <button

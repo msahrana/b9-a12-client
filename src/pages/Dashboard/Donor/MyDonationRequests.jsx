@@ -65,7 +65,6 @@ const MyDonationRequests = () => {
 
   //  Handle Delete
   const deleteDonation = async (id) => {
-    console.log(id);
     try {
       await mutateAsync(id);
       const data = donations.filter((item) => item._id !== id);
