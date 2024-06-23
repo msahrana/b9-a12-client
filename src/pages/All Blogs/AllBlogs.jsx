@@ -17,10 +17,7 @@ const AllBlogs = () => {
     <div className="min-h-[calc(100vh-172px)]">
       <h1 className="text-4xl text-center font-semibold mb-10">All Blogs </h1>
       {/* card */}
-      <div
-        hidden={blogs.status === "draft"}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {blogs
           .filter((item) => item.status === "published")
           .map((blog) => (
