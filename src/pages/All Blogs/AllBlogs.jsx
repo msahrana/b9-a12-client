@@ -21,9 +21,11 @@ const AllBlogs = () => {
         hidden={blogs.status === "draft"}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
       >
-        {blogs.map((blog) => (
-          <BlogsCard key={blog._id} blog={blog}></BlogsCard>
-        ))}
+        {blogs
+          .filter((item) => item.status === "published")
+          .map((blog) => (
+            <BlogsCard key={blog._id} blog={blog}></BlogsCard>
+          ))}
       </div>
     </div>
   );
