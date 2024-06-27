@@ -13,7 +13,6 @@ const SearchPage = () => {
     const upazila = form.upazila.value;
     setSearch(blood, district, upazila);
   };
-  console.log(search);
 
   return (
     <div className="min-h-[calc(100vh-212px)]">
