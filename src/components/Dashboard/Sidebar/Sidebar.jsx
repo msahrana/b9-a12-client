@@ -9,10 +9,17 @@ import AdminMenu from "./Menu/AdminMenu";
 import DonorMenu from "./Menu/DonorMenu";
 import VolunteerMenu from "./Menu/VolunteerMenu";
 import {MdDashboardCustomize} from "react-icons/md";
+import {useState} from "react";
+import {AiOutlineBars} from "react-icons/ai";
 
 const Sidebar = () => {
   const {logOut} = useAuth();
   const [role, isLoading] = useRole();
+  const [isActive, setActive] = useState(false);
+
+  const handleToggle = () => {
+    setActive(!isActive);
+  };
 
   if (isLoading) {
     return <span className="loading loading-infinity loading-lg"></span>;
@@ -29,11 +36,19 @@ const Sidebar = () => {
             </Link>
           </div>
         </div>
+        <button
+          onClick={handleToggle}
+          className="mobile-menu-button p-4 focus:outline-none focus:bg-gray-200"
+        >
+          <AiOutlineBars className="h-5 w-5" />
+        </button>
       </div>
 
       {/* Sidebar */}
       <div
-        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-200 w-80 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform md:translate-x-0 transition duration-200 ease-in-out`}
+        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${
+          isActive && "-translate-x-full"
+        }  md:translate-x-0  transition duration-200 ease-in-out`}
       >
         <div>
           <div>
