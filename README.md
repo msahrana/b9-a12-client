@@ -1,7 +1,6 @@
 Site Name: Life Line
 Site URL: https://life-line-fa28d.web.app
-Admin User: sayed88@gmail.com
-Password: 123456
+
 
 Bullet Point:
 
