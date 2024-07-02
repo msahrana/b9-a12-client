@@ -4,6 +4,13 @@ Site URL: https://life-line-fa28d.web.app
 Project Overview:
 It is a blood donation campaign website. Hare any person can donate blood and money. In the first case, the user creates his register form and donates blood by making a blood donation form.
 
+Technology: 
+1. [aos](https://michalsnik.github.io/aos/)
+2. [axios](https://axios-http.com/docs/intro)
+3. [React Hook form](https://react-hook-form.com/get-started)
+4. [react-icons](https://react-icons.github.io/react-icons/)
+5. [firebase](https://console.firebase.google.com/)
+
 
 Bullet Point:
 
