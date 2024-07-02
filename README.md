@@ -14,24 +14,8 @@ Technology:
 
 Bullet Point:
 
-- Home page: The home page has a navbar, Banner, Welcome section, Contact Page, and Footer. On the contact page, you can find a button. If you click the button then you redirect a contact page.
+- Funding Page: On the funding page, you can see a form section loaded from the database. After full fill all fields, if you click the payment button,  After full fill all field, if you click the pay button some amounts are paid and you can see a transaction.
 
-- Login Page: Here is a login page.
+- Admin Dashboard & Volunteer Dashboard: In this section, you can see a welcome message and three cards. In this section, you can find two parts. Left side you have a menubar and right side you can see all the data. 
 
-- Register Page: On the register page you can sign up by name, photo, upazila, district, blood group, email, and password. After logging or registering your picture will be shown. If you click the picture, then will find the dashboard and blog section.
-
-- Blog: Blogs page, you can see a form. After full fill all fields, if you click the add blog button, the blog item is saved from the database and shows a toast.
-
-- Funding Page: Funding page, you can see a form section whose are loaded from database. After full fill all field, if you click payment button, you can see a payment stripe section. Here you cat see card number and others function. After full fill all field, if you click pay button some amount are pay and you can see a transactionId.
-
-- Dashboard Section: In this site, there are three dashboard, such as admin dashboard, donor dashboard and volunteer dashboard. After click the dashboard, you can get your dashboard section.
-
-- Admin Dashboard: In this section, you can see a welcome message and three card. 1st card show total user, 2nd card show total blood donation request number & 3rd card total funding. In this section you can found two part. Left side you got a menubar and right side you can see all data. In admin menu part, you can see All Users page, All Blood Donation Request Page, Content Management Page and Total Funding Page.
-
-- Volunteer Dashboard: In this section, you can see a welcome message and three card. 1st card show total user, 2nd card show total blood donation request number & 3rd card total funding. In this section you can found two part. Left side you got a menubar and right side you can see all data. In volunteer menu part, you can see All Blood Donation Request Page, Content Management Page and Total Funding Page.
-
-- Donor Dashboard: In this section, you can see a welcome message and a table. In this table, you can get recipient name, recipient location, donation date, donation time, donation status, delete button edit button and view button. In this section you can found a pagination and a filtering section.
-
-- Profile Section: In Profile section you can found a page, here your role, name and email well be shown.
-
-- Donation Requests Section: In this section all donation request information is showing by card item.
+- Donor Dashboard: In this section, you can see a welcome message and a table. In this table, you can get the recipient's name, recipient location, donation date, donation time, donation status, delete button edit button, and view button. In this section, you can find a pagination and a filtering section.
