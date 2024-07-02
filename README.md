@@ -1,16 +1,19 @@
 Site Name: Life Line
 Site URL: https://life-line-fa28d.web.app
 
+Project Overview:
+It is a blood donation campaign website. Hare any person can donate blood and money. In the first case, the user creates his register form and donates blood by making a blood donation form.
+
 
 Bullet Point:
 
-- Home page: Home pages has a navbar, Banner, Welcome section, Contact Page and Footer. In contact page, you cat find a button. If you click the button then you redirect a contact page.
+- Home page: The home page has a navbar, Banner, Welcome section, Contact Page, and Footer. On the contact page, you can find a button. If you click the button then you redirect a contact page.
 
-- Login Page: Here contain a login page.
+- Login Page: Here is a login page.
 
-- Register Page: In register page you can sign up by name, photo, upazila, district, blood group, email and password. After login or register your picture will be show. If you click the picture, then will be found dashboard and blog section.
+- Register Page: On the register page you can sign up by name, photo, upazila, district, blood group, email, and password. After logging or registering your picture will be shown. If you click the picture, then will find the dashboard and blog section.
 
-- Blog: Blogs page, you can see a form. After full fill all field, if you click add blog button, the blog item saved from database and show a toast.
+- Blog: Blogs page, you can see a form. After full fill all fields, if you click the add blog button, the blog item is saved from the database and shows a toast.
 
 - Funding Page: Funding page, you can see a form section whose are loaded from database. After full fill all field, if you click payment button, you can see a payment stripe section. Here you cat see card number and others function. After full fill all field, if you click pay button some amount are pay and you can see a transactionId.
 
